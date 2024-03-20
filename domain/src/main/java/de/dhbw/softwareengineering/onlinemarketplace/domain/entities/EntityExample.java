@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.deinProjektname.domain.entities;
+package de.dhbw.softwareengineering.onlinemarketplace.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

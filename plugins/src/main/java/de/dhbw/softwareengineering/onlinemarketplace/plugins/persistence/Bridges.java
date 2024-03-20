@@ -1,9 +1,9 @@
-package de.dhbw.softwareengineering.deinProjektname.plugins.persistence;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import de.dhbw.softwareengineering.deinProjektname.domain.repositories.BridgeRepository;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.repositories.BridgeRepository;
 
 
 //Muss das jeweilige Domain Repository implementieren

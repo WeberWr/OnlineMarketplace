@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.deinProjektname.adapters.representations;
+package de.dhbw.softwareengineering.OnlineMarketplace.adapters.representations;
 
 //DTO = Data Transfer Object, Quasi um komplexe objekte anzeigen zu können, bzw nur relevante Informationen
 // zu verarbeiten

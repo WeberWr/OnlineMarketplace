@@ -25,7 +25,7 @@
     </modules>
 
     <properties>
-        <start-class>de.dhbw.softwareengineering.OnlineMarketplace.MainApplication</start-class>
+        <start-class>de.dhbw.softwareengineering.onlinemarketplace.MainApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.resources.encoding>UTF-8</project.resources.encoding>

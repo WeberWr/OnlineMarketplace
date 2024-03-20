@@ -1,13 +1,13 @@
-package de.dhbw.softwareengineering.deinProjektname.adapters.representations.mappers;
+package de.dhbw.softwareengineering.OnlineMarketplace.adapters.representations.mappers;
 
 import java.util.function.Function;
 
+import de.dhbw.softwareengineering.OnlineMarketplace.adapters.representations.EntityExampleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import de.dhbw.softwareengineering.deinProjektname.adapters.representations.EntityExampleDTO;
-import de.dhbw.softwareengineering.deinProjektname.domain.entities.EntityExample;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.entities.EntityExample;
 //Beispiel macht keinen Sinn, da EntityExample und das DTO 1 zu 1 das gleiche sind.
 //Würde benötigt werden bei komplexen Entitys die z.B. sich gegenseitig referenzieren.
 //Solche Mapper lässt man im normal fall aus den entitys und dtos automatisch generieren, da wir aber bestimmte
