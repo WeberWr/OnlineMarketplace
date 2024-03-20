@@ -23,7 +23,7 @@
         <module>plugins</module>
         <module>adapters</module>
     </modules>
-
+s
     <properties>
         <start-class>de.dhbw.softwareengineering.onlinemarketplace.MainApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,7 +40,7 @@
                 <version>3.8.1</version>
                 <configuration>
                     <debug>true</debug>
-                    <release>17</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
         </plugins>
