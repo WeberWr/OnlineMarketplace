@@ -1,12 +1,9 @@
-package de.dhbw.softwareengineering.OnlineMarketplace.application.services1;
-
+package de.dhbw.softwareengineering.onlinemarketplace.services;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import de.dhbw.softwareengineering.onlinemarketplace.domain.repositories.BridgeRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +29,7 @@ public class UserService {
 
     };
 
-    boolean deleteById(UUID id){
-        return repository.deleteById(id);
+    void deleteById(UUID id){
+        repository.deleteById(id);
     };
 }

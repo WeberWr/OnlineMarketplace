@@ -1,22 +1,31 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
-import de.dhbw.softwareengineering.OnlineMarketplace.application.services1.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.UserDTO;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.mappers.mappers.UserToUserDTOMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/api/book")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
 	private final UserService userService;
+	private final UserToUserDTOMapper userToUserDTOMapper;
 
-	private final BookToBookResourceMapper bookToBookResourceMapper;
+	@Autowired
+	public UserController(final UserService userService, final UserToUserDTOMapper userToUserDTOMapper) {
+		this.userService = userService;
+		this.userToUserDTOMapper = userToUserDTOMapper;
+	}
 
-
-	 @GetMapping("/user/{id}")
-	    public String test(@PathVariable String id) {
-	        return "test: " + id;
-	    }
+	@RequestMapping(method = RequestMethod.GET)
+	public List<UserDTO> getBooks() {
+		return this.userService.findAllUsers().stream()
+				.map(userToUserDTOMapper)
+				.collect(Collectors.toList());
+	}
 }

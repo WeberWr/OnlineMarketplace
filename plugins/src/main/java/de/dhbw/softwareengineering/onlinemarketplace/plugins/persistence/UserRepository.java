@@ -3,6 +3,7 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.persistence;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.support.NullValue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,25 +23,25 @@ public class UserRepository  implements IUserRepository {
 
 	@Override
 	public List<User> findAllUsers() {
-		dataUserRepository.findAll();
-		return null;
+		return dataUserRepository.findAll();
 	}
 
 	@Override
 	public User findUserWithId(UUID id) {
-		dataUserRepository.findById(id);
-		return null;
+		var user = dataUserRepository.findById(id);
+		if (user.isEmpty()){
+			throw new RuntimeException("User with id " + id + " not found");
+		}
+		return user.get();
 	}
 
 	@Override
 	public User create(User user) {
-		dataUserRepository.save(user);
-		return null;
+		return dataUserRepository.save(user);
 	}
 
 	@Override
-	public boolean deleteById(UUID id) {
+	public void deleteById(UUID id) {
 		dataUserRepository.deleteById(id);
-		return false;
 	}
 }

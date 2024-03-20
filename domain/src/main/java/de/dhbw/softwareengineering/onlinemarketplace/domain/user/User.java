@@ -19,4 +19,27 @@ public class User {
     private LocalDate birthDate;
 
     private Address address;
+
+    public User(UUID id, Name name, LocalDate birthDate, Address address) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.address = address;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
 }

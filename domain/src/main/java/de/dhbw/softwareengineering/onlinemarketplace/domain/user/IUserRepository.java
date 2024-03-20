@@ -10,5 +10,5 @@ public interface IUserRepository {
 
     User create(User user);
 
-    boolean deleteById(UUID id);
+    void deleteById(UUID id);
 }
