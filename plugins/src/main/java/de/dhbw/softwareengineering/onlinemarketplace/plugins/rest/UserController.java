@@ -1,9 +1,7 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.UserDTO;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.mappers.mappers.UserDTOToUserMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.mappers.mappers.UserToUserDTOMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,18 +22,10 @@ public class UserController {
 		this.userToUserDTOMapper = userToUserDTOMapper;
 	}
 
-	@GetMapping("/user")
-	public List<UserDTO> Get() {
+	@RequestMapping(method = RequestMethod.GET)
+	public List<UserDTO> getBooks() {
 		return this.userService.findAllUsers().stream()
 				.map(userToUserDTOMapper)
 				.collect(Collectors.toList());
 	}
-
-
-	@PostMapping("/user")
-	public User Create(@RequestBody UserDTO userDTO) {
-		var user = new User(userDTO.getId(), userDTO.getName(), userDTO.getBirthDate(), userDTO.getAddress());
-		return this.userService.create(user);
-	}
-
 }
