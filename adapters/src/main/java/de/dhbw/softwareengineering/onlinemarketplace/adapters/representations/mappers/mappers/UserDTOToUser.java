@@ -2,6 +2,7 @@ package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.m
 
 import java.util.function.Function;
 
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.stereotype.Component;
 
