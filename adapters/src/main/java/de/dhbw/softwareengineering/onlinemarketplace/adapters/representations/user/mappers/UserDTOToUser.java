@@ -1,10 +1,10 @@
-package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.mappers.mappers;
+package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers;
 
-import java.util.function.Function;
-
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.UserDTO;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.stereotype.Component;
+
+import java.util.function.Function;
 
 @Component
 public class UserDTOToUser implements Function<UserDTO, User> {

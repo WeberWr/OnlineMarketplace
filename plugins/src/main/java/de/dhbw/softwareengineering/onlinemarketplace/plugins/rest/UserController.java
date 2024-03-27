@@ -1,10 +1,12 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.UserDTO;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.mappers.mappers.UserToUserDTOMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers.UserToUserDTOMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;

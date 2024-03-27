@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations;
+package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Address;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
