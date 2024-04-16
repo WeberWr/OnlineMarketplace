@@ -2,7 +2,6 @@ package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.p
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
@@ -16,7 +15,7 @@ public class ProductDTOToProduct implements Function<ProductDTO, Product> {
         return map(productDTO);
     }
 
-    private User map(final ProductDTO productDTO) {
-        return new User(productDTO.getId(), productDTO.getName(), productDTO.getUserId());
+    private Product map(final ProductDTO productDTO) {
+        return new Product(productDTO.getId(), productDTO.getName(), productDTO.getUserId());
     }
 }
