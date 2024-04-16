@@ -21,7 +21,7 @@ public class ShoppingCartService {
         return repository.getShoppingCartOfUser(userId);
     }
 
-    public ShoppingCart removeItem(RemoveItemFromShoppingCart request) {
+    public ShoppingCart removeItem(RemoveItemFromShoppingCartRequest request) {
         request.shoppingCart().removeItemWithProduct(request.productId());
         return repository.update(request.shoppingCart());
     }

@@ -4,7 +4,7 @@ import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.sh
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.AddItemToShoppingCartRequest;
-import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCart;
+import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCartRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +40,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping
-    public ResponseEntity<ShoppingCartDto> removeItem(@RequestBody RemoveItemFromShoppingCart request) {
+    public ResponseEntity<ShoppingCartDto> removeItem(@RequestBody RemoveItemFromShoppingCartRequest request) {
         var updatedShoppingCart = shoppingCartService.removeItem(request);
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
