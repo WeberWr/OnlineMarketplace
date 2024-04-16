@@ -9,6 +9,5 @@ public interface IUserRepository {
     Optional<User> getUserByEmail(String email);
     List<User> getAllUsers();
     void create(User user);
-    void update(User user);
     void deleteUser(UUID id);
 }

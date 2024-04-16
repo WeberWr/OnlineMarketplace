@@ -4,13 +4,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface IShoppingCartRepository {
+    ShoppingCart create(ShoppingCart shoppingCart);
+
     Optional<ShoppingCart> getShoppingCartOfUser(UUID userId);
 
     ShoppingCart update(ShoppingCart shoppingCart);
 
-    UUID create(UUID userId);
+    void deleteById(UUID id);
 
-    void delete(UUID id);
-
-    void deleteOfUser(UUID userId);
+    void delete(ShoppingCart shoppingCart);
 }

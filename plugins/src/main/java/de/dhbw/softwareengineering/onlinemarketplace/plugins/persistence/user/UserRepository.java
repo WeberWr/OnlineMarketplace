@@ -40,11 +40,6 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public void update(User user) {
-		dataUserRepository.save(user);
-	}
-
-	@Override
 	public void deleteUser(UUID id) {
 		dataUserRepository.deleteById(id);
 	}

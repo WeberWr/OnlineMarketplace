@@ -10,9 +10,15 @@ import java.util.UUID;
 
 @Document
 public class ShoppingCart {
-    private final List<CartItem> items = new ArrayList<>();
-    private UUID id;
-    private UUID userId;
+    private final UUID id;
+    private final UUID userId;
+    private final List<CartItem> items;
+
+    public ShoppingCart(UUID userId) {
+        id = UUID.randomUUID();
+        this.userId = userId;
+        items = new ArrayList<>();
+    }
 
     public UUID getId() {
         return id;
@@ -39,9 +45,7 @@ public class ShoppingCart {
         items.add(newItem);
     }
 
-    //ToDo increase/decrease quantity
-
-    public void removeItem(Product product) {
-        items.removeIf(item -> item.productId().equals(product));
+    public void removeItem(UUID productId) {
+        items.removeIf(item -> item.productId().equals(productId));
     }
 }

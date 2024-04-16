@@ -14,11 +14,6 @@ public class UserToUserDtoMapper implements Function<User, UserDto> {
     }
 
     private UserDto map(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.id());
-        dto.setFirstName(user.name().firstName());
-        dto.setLastName(user.name().lastName());
-        dto.setEmail(user.email());
-        return dto;
+        return new UserDto(user.id(), user.name().firstName(), user.name().lastName(), user.email());
     }
 }

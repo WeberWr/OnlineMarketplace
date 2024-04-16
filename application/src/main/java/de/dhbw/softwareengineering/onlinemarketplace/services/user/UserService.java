@@ -1,6 +1,7 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
@@ -43,12 +44,16 @@ public class UserService {
         var name = new Name(request.firstName(), request.lastName());
         var user = new User(name, request.email(), passwordEncoder.encode(request.password()));
         userRepository.create(user);
-        shoppingCartRepository.create(user.id());
+
+        var shoppingCart = new ShoppingCart(user.id());
+        shoppingCartRepository.create(shoppingCart);
         return user;
     }
 
     public void deleteUser(UUID id) {
         userRepository.deleteUser(id);
-        shoppingCartRepository.deleteOfUser(id);
+
+        var shoppingCard = shoppingCartRepository.getShoppingCartOfUser(id);
+        shoppingCard.ifPresent(shoppingCartRepository::delete);
     }
 }

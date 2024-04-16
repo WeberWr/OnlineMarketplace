@@ -58,6 +58,8 @@ public class ProductController {
         return ResponseEntity.ok(toDtoMapper.apply(createdProduct));
     }
 
+    //ToDo add updateMethod
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         productService.deleteById(id);

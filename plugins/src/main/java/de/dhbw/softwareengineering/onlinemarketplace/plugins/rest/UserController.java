@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
 	private final UserService userService;
 	private final UserToUserDtoMapper toDtoMapper = new UserToUserDtoMapper();
 
@@ -54,6 +53,8 @@ public class UserController {
 		}
 		return ResponseEntity.ok(toDtoMapper.apply(createdUser));
 	}
+
+	//ToDo add updateMethod
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {

@@ -13,10 +13,6 @@ public class ShoppingCartToShoppingCartDtoMapper implements Function<ShoppingCar
     }
 
     private ShoppingCartDto map(ShoppingCart shoppingCart) {
-        ShoppingCartDto dto = new ShoppingCartDto();
-        dto.setId(shoppingCart.getId());
-        dto.setUserId(shoppingCart.getUserId());
-        dto.setItems(shoppingCart.getItems());
-        return dto;
+        return new ShoppingCartDto(shoppingCart.getId(), shoppingCart.getUserId(), shoppingCart.getItems());
     }
 }

@@ -18,6 +18,10 @@ public class ShoppingCartRepository implements IShoppingCartRepository {
     public ShoppingCartRepository(final DataShoppingCartRepository dataShoppingCartRepository) {
         this.dataShoppingCartRepository = dataShoppingCartRepository;
     }
+    @Override
+    public ShoppingCart create(ShoppingCart shoppingCart) {
+        return dataShoppingCartRepository.save(shoppingCart);
+    }
 
     @Override
     public Optional<ShoppingCart> getShoppingCartOfUser(UUID userId) {
@@ -30,7 +34,12 @@ public class ShoppingCartRepository implements IShoppingCartRepository {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         dataShoppingCartRepository.deleteById(id);
+    }
+
+    @Override
+    public void delete(ShoppingCart shoppingCart) {
+        dataShoppingCartRepository.delete(shoppingCart);
     }
 }

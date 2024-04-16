@@ -8,11 +8,9 @@ import java.util.UUID;
 @Document
 public final class Product {
     private final UUID id;
-    private final UUID ownerId;
+    private final UUID userId;
     private final String name;
     private final double price;
-    private final int amount;
-
 
     public Product(UUID userId, String name, double price, int amount) {
         Validate.notNull(userId);
@@ -21,29 +19,24 @@ public final class Product {
         Validate.isTrue(amount >= 0);
 
         this.id = UUID.randomUUID();
-        this.ownerId = userId;
+        this.userId = userId;
         this.name = name;
         this.price = price;
-        this.amount = amount;
     }
 
-    public UUID id() {
+    public UUID getId() {
         return id;
     }
 
-    public UUID ownerId() {
-        return ownerId;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 
-    public double price() {
+    public double getPrice() {
         return price;
-    }
-
-    public int amount() {
-        return amount;
     }
 }

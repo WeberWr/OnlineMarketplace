@@ -45,6 +45,9 @@ public class ShoppingCartController {
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 
+    //ToDo add updateMethod (increase/decrease)
+    //ToDo add getTotalPrize
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         shoppingCartService.deleteById(id);

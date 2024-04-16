@@ -22,11 +22,9 @@ public class ShoppingCartService {
     }
 
     public ShoppingCart removeItem(RemoveItemFromShoppingCart request) {
-        request.shoppingCart().removeItem(request.product());
+        request.shoppingCart().removeItem(request.productId());
         return repository.update(request.shoppingCart());
     }
-
-    ;
 
     public ShoppingCart addItem(AddItemToShoppingCartRequest request) {
         request.shoppingCart().addItem(request.cartItem());
@@ -34,8 +32,6 @@ public class ShoppingCartService {
     }
 
     public void deleteById(UUID id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
-
-    //ToDo getTotalPrice
 }
