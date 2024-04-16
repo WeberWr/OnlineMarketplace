@@ -1,8 +1,7 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.product;
 
+import org.apache.commons.lang3.Validate;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Objects;
 import java.util.UUID;
 
 @Document
@@ -13,10 +12,14 @@ public final class Product {
     private final double price;
     private final int amount;
 
-    public Product(UUID id, UUID ownerId, String name, double price, int amount) {
-        //ToDo: validate all and remove Id here
-        this.id = id;
-        this.ownerId = ownerId;
+
+    public Product(UUID userId, String name, double price, int amount) {
+        Validate.notNull(userId, "A products needs a userId");
+        Validate.notBlank(name, "A product needs a name");
+        Validate.isTrue(price > 0, "The price should not be negative or zero");
+        Validate.isTrue(amount >= 0, "The amount should not be negative");
+        this.id = UUID.randomUUID();
+        this.ownerId = userId;
         this.name = name;
         this.price = price;
         this.amount = amount;
@@ -40,32 +43,5 @@ public final class Product {
 
     public int amount() {
         return amount;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Product) obj;
-        return Objects.equals(this.id, that.id) &&
-                Objects.equals(this.ownerId, that.ownerId) &&
-                Objects.equals(this.name, that.name) &&
-                Double.doubleToLongBits(this.price) == Double.doubleToLongBits(that.price) &&
-                this.amount == that.amount;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, ownerId, name, price, amount);
-    }
-
-    @Override
-    public String toString() {
-        return "Product[" +
-                "id=" + id + ", " +
-                "ownerId=" + ownerId + ", " +
-                "name=" + name + ", " +
-                "price=" + price + ", " +
-                "amount=" + amount + ']';
     }
 }

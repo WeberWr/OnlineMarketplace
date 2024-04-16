@@ -33,7 +33,7 @@ public class UserService {
 
     public User create(CreateUserRequest request) {
         var name = new Name(request.firstName(), request.lastName());
-        var user = new User(UUID.randomUUID(), name, request.email(), passwordEncoder.encode(request.password()));
+        var user = new User(name, request.email(), passwordEncoder.encode(request.password()));
         userRepository.create(user);
         return user;
     }

@@ -1,5 +1,7 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.Objects;
 
 public final class Name {
@@ -7,7 +9,8 @@ public final class Name {
     private final String lastName;
 
     public Name(String firstName, String lastName) {
-        //ToDo: validate nur buchstaben/zahlen in namen und custom exception
+        Validate.notBlank(firstName, "Firstname cannot be null");
+        Validate.notBlank(lastName, "Lastname cannot be null");
         this.firstName = firstName;
         this.lastName = lastName;
     }
