@@ -1,8 +1,6 @@
-package de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject;
+package de.dhbw.softwareengineering.onlinemarketplace.domain.user;
 
 import org.apache.commons.lang3.Validate;
-
-import java.util.Objects;
 
 public record Name(String firstName, String lastName) {
     public Name {

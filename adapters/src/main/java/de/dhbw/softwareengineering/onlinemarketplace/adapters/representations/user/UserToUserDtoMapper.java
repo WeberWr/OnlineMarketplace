@@ -1,6 +1,5 @@
-package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers;
+package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user;
 
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.stereotype.Component;
 

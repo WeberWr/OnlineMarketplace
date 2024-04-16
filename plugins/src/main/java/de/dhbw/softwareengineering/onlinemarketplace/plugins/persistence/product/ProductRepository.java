@@ -16,8 +16,8 @@ public class ProductRepository implements IProductRepository {
     private final DataProductRepository dataProductRepository;
 
     @Autowired
-    public ProductRepository(final DataProductRepository dataUserRepository) {
-        this.dataProductRepository = dataUserRepository;
+    public ProductRepository(final DataProductRepository dataProductRepository) {
+        this.dataProductRepository = dataProductRepository;
     }
 
     @Override

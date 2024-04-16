@@ -1,7 +1,7 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductToProductDtoMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.services.product.CreateProductRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.services.product.ProductService;

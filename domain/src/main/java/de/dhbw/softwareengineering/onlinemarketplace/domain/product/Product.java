@@ -2,6 +2,7 @@ package de.dhbw.softwareengineering.onlinemarketplace.domain.product;
 
 import org.apache.commons.lang3.Validate;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.UUID;
 
 @Document
@@ -18,6 +19,7 @@ public final class Product {
         Validate.notBlank(name);
         Validate.isTrue(price > 0);
         Validate.isTrue(amount >= 0);
+
         this.id = UUID.randomUUID();
         this.ownerId = userId;
         this.name = name;

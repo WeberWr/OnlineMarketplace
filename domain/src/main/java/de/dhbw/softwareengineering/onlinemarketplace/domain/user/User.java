@@ -1,10 +1,8 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.EmailValidator;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
 import org.apache.commons.lang3.Validate;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public final class User {

@@ -1,10 +1,10 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.user;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers.UserToUserDtoMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,12 @@ public class UserController {
 	@PostMapping
 	@SecurityRequirements()
 	public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest request) {
-		User createdUser = userService.create(request);
+		User createdUser;
+		try {
+			createdUser = userService.create(request);
+		} catch (UserAlreadyExistsException e) {
+			return ResponseEntity.badRequest().build();
+		}
 		return ResponseEntity.ok(toDtoMapper.apply(createdUser));
 	}
 

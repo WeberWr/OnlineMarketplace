@@ -1,6 +1,5 @@
-package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers;
+package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product;
 
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
 import org.springframework.stereotype.Component;
 

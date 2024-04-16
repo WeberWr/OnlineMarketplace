@@ -1,8 +1,9 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.user;
 
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.services.IPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ import java.util.UUID;
 public class UserService {
 
     private final IUserRepository userRepository;
+    private final IShoppingCartRepository shoppingCartRepository;
     private final IPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(IUserRepository userRepository, IPasswordEncoder passwordEncoder) {
+    public UserService(IUserRepository userRepository, IShoppingCartRepository shoppingCartRepository, IPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.shoppingCartRepository = shoppingCartRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -31,14 +34,21 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
-    public User create(CreateUserRequest request) {
+    public User create(CreateUserRequest request) throws UserAlreadyExistsException {
+        var existingUser = userRepository.getUserByEmail(request.email());
+        if (existingUser.isPresent()) {
+            throw new UserAlreadyExistsException();
+        }
+
         var name = new Name(request.firstName(), request.lastName());
         var user = new User(name, request.email(), passwordEncoder.encode(request.password()));
         userRepository.create(user);
+        shoppingCartRepository.create(user.id());
         return user;
     }
 
     public void deleteUser(UUID id) {
         userRepository.deleteUser(id);
+        shoppingCartRepository.deleteOfUser(id);
     }
 }
