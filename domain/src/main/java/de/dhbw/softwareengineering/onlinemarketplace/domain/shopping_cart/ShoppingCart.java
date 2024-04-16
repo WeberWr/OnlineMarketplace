@@ -1,6 +1,5 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class ShoppingCart {
         items.add(newItem);
     }
 
-    public void removeItem(UUID productId) {
+    public void removeItemWithProduct(UUID productId) {
         items.removeIf(item -> item.productId().equals(productId));
     }
 }

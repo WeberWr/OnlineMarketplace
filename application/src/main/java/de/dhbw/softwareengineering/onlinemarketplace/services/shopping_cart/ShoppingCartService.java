@@ -22,7 +22,7 @@ public class ShoppingCartService {
     }
 
     public ShoppingCart removeItem(RemoveItemFromShoppingCart request) {
-        request.shoppingCart().removeItem(request.productId());
+        request.shoppingCart().removeItemWithProduct(request.productId());
         return repository.update(request.shoppingCart());
     }
 

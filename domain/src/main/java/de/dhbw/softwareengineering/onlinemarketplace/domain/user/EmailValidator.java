@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.domain;
+package de.dhbw.softwareengineering.onlinemarketplace.domain.user;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

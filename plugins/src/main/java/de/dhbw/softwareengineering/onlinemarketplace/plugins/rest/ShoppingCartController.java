@@ -47,6 +47,7 @@ public class ShoppingCartController {
 
     //ToDo add updateMethod (increase/decrease)
     //ToDo add getTotalPrize
+    //ToDo add endpoint to bestellung abschließen
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
