@@ -1,5 +1,6 @@
 package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers;
 
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.CreateUserRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Address;
@@ -9,16 +10,17 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class UserDtoToUserMapper implements Function<UserDto, User> {
+public class CreateRequestToUserMapper implements Function<CreateUserRequest, User> {
 
     @Override
-    public User apply(UserDto dto) {
-        return map(dto);
+    public User apply(CreateUserRequest request) {
+        return map(request);
     }
 
-    private User map(UserDto dto) {
+    private User map(CreateUserRequest request) {
+        UserDto dto = request.user();
         Name name = new Name(dto.getFirstName(), dto.getLastName());
         Address address = new Address(dto.getZipcode(), dto.getStreet(), dto.getStreetNumber());
-        return new User(dto.getId(), name, address);
+        return new User(dto.getId(), name, address, dto.getEmail(), request.password());
     }
 }

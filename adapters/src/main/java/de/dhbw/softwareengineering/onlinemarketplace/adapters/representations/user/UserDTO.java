@@ -9,6 +9,7 @@ public class UserDto {
     private String street;
     private int streetNumber;
     private String zipcode;
+    private String email;
 
     public UUID getId() {
         return id;
@@ -56,5 +57,13 @@ public class UserDto {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
