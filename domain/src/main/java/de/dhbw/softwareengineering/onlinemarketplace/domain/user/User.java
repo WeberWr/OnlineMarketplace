@@ -1,6 +1,8 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.user;
 
+import de.dhbw.softwareengineering.onlinemarketplace.domain.EmailValidator;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
+import org.apache.commons.lang3.Validate;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -11,9 +13,12 @@ public final class User {
     private final String email;
     private final String password;
 
-    public User(UUID id, Name name, String email, String password) {
-        //ToDo: validate all and remove Id here
-        this.id = id;
+    public User(Name name, String email, String password) {
+        Validate.notNull(name);
+        Validate.notBlank(email);
+        Validate.isTrue(EmailValidator.getInstance().isValidEmail(email));
+        Validate.notBlank(password);
+        this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
         this.password = password;
