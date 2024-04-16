@@ -27,7 +27,7 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> findAllProductsFromUser(UUID userId) {
-        return dataProductRepository.findAll().stream().filter(product -> product.ownerId() == userId).toList();
+        return dataProductRepository.findAll().stream().filter(product -> product.ownerId().equals(userId)).toList();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product createOrUpdate(Product product) {
+    public Product create(Product product) {
         return dataProductRepository.save(product);
     }
 
