@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -26,20 +27,16 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Product> findAllProductsFromUser(UUID userId) {
-        return dataProductRepository.findAll();
+        return dataProductRepository.findAll().stream().filter(product -> product.ownerId() == userId).toList();
     }
 
     @Override
-    public Product findProductWithId(UUID id) {
-        var product = dataProductRepository.findById(id);
-        if (product.isEmpty()) {
-            throw new RuntimeException("Product with id " + id + " not found");
-        }
-        return product.get();
+    public Optional<Product> findProductWithId(UUID id) {
+        return dataProductRepository.findById(id);
     }
 
     @Override
-    public Product create(Product product) {
+    public Product createOrUpdate(Product product) {
         return dataProductRepository.save(product);
     }
 

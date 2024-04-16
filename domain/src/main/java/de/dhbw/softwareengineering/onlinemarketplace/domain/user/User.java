@@ -4,8 +4,7 @@ import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Address;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
 import java.util.UUID;
 
-public record User(UUID id, Name name, Address address) {
-
+public record User(UUID id, Name name, Address address, String email, String password) {
     @Override
     public String toString() {
         return "User{" +
@@ -14,5 +13,4 @@ public record User(UUID id, Name name, Address address) {
                 ", address=" + address +
                 '}';
     }
-
 }

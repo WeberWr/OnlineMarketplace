@@ -25,6 +25,11 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
+	public Optional<User> getUserByEmail(String email) {
+		return dataUserRepository.findUserByEmail(email);
+	}
+
+	@Override
 	public List<User> getAllUsers() {
 		return dataUserRepository.findAll();
 	}
