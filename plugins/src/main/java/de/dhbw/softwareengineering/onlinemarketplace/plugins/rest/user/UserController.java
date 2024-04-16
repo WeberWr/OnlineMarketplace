@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;

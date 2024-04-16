@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.shopping_cart;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;

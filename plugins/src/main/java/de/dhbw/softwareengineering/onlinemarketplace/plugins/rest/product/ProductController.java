@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
