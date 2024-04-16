@@ -38,11 +38,6 @@ public class UserService {
         return user;
     }
 
-    public User update(User user) {
-        userRepository.update(user);
-        return user;
-    }
-
     public void deleteUser(UUID id) {
         userRepository.deleteUser(id);
     }

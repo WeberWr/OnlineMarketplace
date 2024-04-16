@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.services;
+package de.dhbw.softwareengineering.onlinemarketplace.services.product;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.IProductRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
@@ -30,8 +30,9 @@ public class ProductService {
         return repository.findProductWithId(id);
     }
 
-    public Product createOrUpdate(Product product) {
-        return repository.createOrUpdate(product);
+    public Product create(CreateProductRequest request, UUID userId) {
+        var product = new Product(UUID.randomUUID(), userId, request.name(), request.price(), request.amount());
+        return repository.create(product);
     }
 
     public void deleteById(UUID id) {

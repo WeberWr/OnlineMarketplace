@@ -1,9 +1,10 @@
-package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
+package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductDtoToProduct;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductToProductDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.services.ProductService;
+import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
+import de.dhbw.softwareengineering.onlinemarketplace.services.product.CreateProductRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,13 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private final ProductService productService;
+    private final ContextProvider contextProvider;
     private final ProductToProductDtoMapper toDtoMapper = new ProductToProductDtoMapper();
-    private final ProductDtoToProduct toProductMapper = new ProductDtoToProduct();
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ContextProvider contextProvider) {
         this.productService = productService;
+        this.contextProvider = contextProvider;
     }
 
     @GetMapping("/{id}")
@@ -33,7 +35,7 @@ public class ProductController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         List<ProductDto> products = productService.getAllProducts().stream()
                 .map(toDtoMapper)
@@ -41,18 +43,19 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PostMapping
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
-        var product = toProductMapper.apply(productDto);
-        var createdUser = productService.createOrUpdate(product);
-        return ResponseEntity.ok(toDtoMapper.apply(createdUser));
+    @GetMapping
+    public ResponseEntity<List<ProductDto>> getAllProductsOfUser() {
+        var currentUserId = contextProvider.getUser().id();
+        List<ProductDto> products = productService.getAllProductsFromUser(currentUserId).stream()
+                .map(toDtoMapper)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(products);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody ProductDto productDto) {
-        var product = toProductMapper.apply(productDto);
-        var updatedProduct = productService.createOrUpdate(product);
-        return ResponseEntity.ok(toDtoMapper.apply(updatedProduct));
+    @PostMapping
+    public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request) {
+        var createdProduct = productService.create(request, contextProvider.getUser().id());
+        return ResponseEntity.ok(toDtoMapper.apply(createdProduct));
     }
 
     @DeleteMapping("/{id}")

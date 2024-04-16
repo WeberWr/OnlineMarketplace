@@ -8,6 +8,6 @@ public interface IProductRepository {
     List<Product> findAllProducts();
     List<Product> findAllProductsFromUser(UUID userId);
     Optional<Product> findProductWithId(UUID id);
-    Product createOrUpdate(Product product);
+    Product create(Product product);
     void deleteById(UUID id);
 }
