@@ -6,40 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
 @Repository
-public class UserRepository  implements IUserRepository {
-
+public class UserRepository implements IUserRepository {
 	private final DataUserRepository dataUserRepository;
 
 	@Autowired
-	public UserRepository(final DataUserRepository dataUserRepository) {
+	public UserRepository(DataUserRepository dataUserRepository) {
 		this.dataUserRepository = dataUserRepository;
 	}
 
 	@Override
-	public List<User> findAllUsers() {
+	public Optional<User> getUserById(UUID id) {
+		return dataUserRepository.findById(id);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
 		return dataUserRepository.findAll();
 	}
 
 	@Override
-	public User findUserWithId(UUID id) {
-		var user = dataUserRepository.findById(id);
-		if (user.isEmpty()){
-			throw new RuntimeException("User with id " + id + " not found");
-		}
-		return user.get();
+	public void createOrUpdate(User user) {
+		dataUserRepository.save(user);
 	}
 
 	@Override
-	public User create(User user) {
-		return dataUserRepository.save(user);
-	}
-
-	@Override
-	public void deleteById(UUID id) {
+	public void deleteUser(UUID id) {
 		dataUserRepository.deleteById(id);
 	}
 }

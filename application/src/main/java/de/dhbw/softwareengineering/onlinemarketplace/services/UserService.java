@@ -6,30 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UserService {
-    private final IUserRepository repository;
+
+    private final IUserRepository userRepository;
+
     @Autowired
-    public UserService(IUserRepository repository) {
-        this.repository = repository;
+    public UserService(IUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<User> findAllUsers(){
-        return repository.findAllUsers();
-    };
+    public Optional<User> getUserById(UUID id) {
+        return userRepository.getUserById(id);
+    }
 
-    public User findUserWithId(UUID id){
-        return repository.findUserWithId(id);
-    };
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
 
-    public User create(User user){
-        return repository.create(user);
+    public User createOrUpdateUser(User user) {
+        userRepository.createOrUpdate(user);
+        return user;
+    }
 
-    };
-
-    void deleteById(UUID id){
-        repository.deleteById(id);
-    };
+    public void deleteUser(UUID id) {
+        userRepository.deleteUser(id);
+    }
 }

@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  # Mongo Database
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "Lukas"
+      MONGO_INITDB_ROOT_PASSWORD: "SoftwareEngineering"
+    ports:
+      - "27017:27017"

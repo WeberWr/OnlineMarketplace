@@ -1,33 +1,64 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers.UserToUserDTOMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers.UserDtoToUserMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.mappers.UserToUserDtoMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping("/users")
 public class UserController {
 
 	private final UserService userService;
-	private final UserToUserDTOMapper userToUserDTOMapper;
+	private final UserToUserDtoMapper toDtoMapper = new UserToUserDtoMapper();
+	private final UserDtoToUserMapper toUserMapper = new UserDtoToUserMapper();
 
 	@Autowired
-	public UserController(final UserService userService, final UserToUserDTOMapper userToUserDTOMapper) {
+	public UserController(UserService userService) {
 		this.userService = userService;
-		this.userToUserDTOMapper = userToUserDTOMapper;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<UserDTO> getBooks() {
-		return this.userService.findAllUsers().stream()
-				.map(userToUserDTOMapper)
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
+		return userService.getUserById(id)
+				.map(toDtoMapper)
+				.map(ResponseEntity::ok)
+				.orElseGet(() -> ResponseEntity.notFound().build());
+	}
+
+	@GetMapping
+	public ResponseEntity<List<UserDto>> getAllUsers() {
+		List<UserDto> users = userService.getAllUsers().stream()
+				.map(toDtoMapper)
 				.collect(Collectors.toList());
+		return ResponseEntity.ok(users);
+	}
+
+	@PostMapping
+	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+		User user = toUserMapper.apply(userDto);
+		User createdUser = userService.createOrUpdateUser(user);
+		return ResponseEntity.ok(toDtoMapper.apply(createdUser));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<UserDto> updateUser(@PathVariable UUID id, @RequestBody UserDto userDto) {
+		userDto.setId(id);
+		User user = toUserMapper.apply(userDto);
+		User updatedUser = userService.createOrUpdateUser(user);
+		return ResponseEntity.ok(toDtoMapper.apply(updatedUser));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+		userService.deleteUser(id);
+		return ResponseEntity.ok().build();
 	}
 }

@@ -1,41 +1,60 @@
 package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Address;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.valueObject.Name;
-
-import java.time.LocalDate;
 import java.util.UUID;
 
-public class UserDTO {
-    private final UUID id;
-
-    private final Name name;
-
-    private final LocalDate birthDate;
-
-    private final Address address;
-
-    public UserDTO(final UUID id, final Name name, final LocalDate birthDate, final Address address) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.address = address;
-    }
+public class UserDto {
+    private UUID id;
+    private String firstName;
+    private String lastName;
+    private String street;
+    private int streetNumber;
+    private String zipcode;
 
     public UUID getId() {
         return id;
     }
 
-    public Name getName() {
-        return name;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Address getAddress() {
-        return address;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public int getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 }
-
