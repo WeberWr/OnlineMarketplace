@@ -35,7 +35,12 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public void createOrUpdate(User user) {
+	public void create(User user) {
+		dataUserRepository.save(user);
+	}
+
+	@Override
+	public void update(User user) {
 		dataUserRepository.save(user);
 	}
 

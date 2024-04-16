@@ -19,9 +19,7 @@ public class UserToUserDtoMapper implements Function<User, UserDto> {
         dto.setId(user.id());
         dto.setFirstName(user.name().firstName());
         dto.setLastName(user.name().lastName());
-        dto.setStreet(user.address().street());
-        dto.setStreetNumber(user.address().streetNumber());
-        dto.setZipcode(user.address().zipcode());
+        dto.setEmail(user.email());
         return dto;
     }
 }

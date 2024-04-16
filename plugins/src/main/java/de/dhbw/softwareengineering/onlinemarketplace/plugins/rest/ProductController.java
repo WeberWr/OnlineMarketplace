@@ -1,14 +1,13 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest;
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductDtoToProductMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductDtoToProduct;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.mappers.ProductToProductDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class ProductController {
 
     private final ProductService productService;
     private final ProductToProductDtoMapper toDtoMapper = new ProductToProductDtoMapper();
-    private final ProductDtoToProductMapper toProductMapper = new ProductDtoToProductMapper();
+    private final ProductDtoToProduct toProductMapper = new ProductDtoToProduct();
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -43,23 +42,22 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        User user = toUserMapper.apply(userDto);
-        User createdUser = productService.createOrUpdateUser(user);
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
+        var product = toProductMapper.apply(productDto);
+        var createdUser = productService.createOrUpdate(product);
         return ResponseEntity.ok(toDtoMapper.apply(createdUser));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable UUID id, @RequestBody UserDto userDto) {
-        userDto.setId(id);
-        User user = toUserMapper.apply(userDto);
-        User updatedUser = productService.createOrUpdateUser(user);
-        return ResponseEntity.ok(toDtoMapper.apply(updatedUser));
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody ProductDto productDto) {
+        var product = toProductMapper.apply(productDto);
+        var updatedProduct = productService.createOrUpdate(product);
+        return ResponseEntity.ok(toDtoMapper.apply(updatedProduct));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
-        productService.deleteUser(id);
+        productService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }
