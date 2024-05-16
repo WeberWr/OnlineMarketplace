@@ -1,6 +1,6 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.user;
 
-import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDto;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.services.CreateUserRequest;
@@ -27,7 +27,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
+	public ResponseEntity<UserDTO> getUserById(@PathVariable UUID id) {
 		return userService.getUserById(id)
 				.map(toDtoMapper)
 				.map(ResponseEntity::ok)
@@ -35,8 +35,8 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<UserDto>> getAllUsers() {
-		List<UserDto> users = userService.getAllUsers().stream()
+	public ResponseEntity<List<UserDTO>> getAllUsers() {
+		List<UserDTO> users = userService.getAllUsers().stream()
 				.map(toDtoMapper)
 				.collect(Collectors.toList());
 		return ResponseEntity.ok(users);
@@ -44,7 +44,7 @@ public class UserController {
 
 	@PostMapping
 	@SecurityRequirements()
-	public ResponseEntity<UserDto> createUser(@RequestBody CreateUserRequest request) {
+	public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest request) {
 		User createdUser;
 		try {
 			createdUser = userService.create(request);
