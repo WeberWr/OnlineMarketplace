@@ -47,18 +47,6 @@
 
         <dependency>
             <groupId>de.dhbw.softwareengineering</groupId>
-            <artifactId>domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.dhbw.softwareengineering</groupId>
-            <artifactId>application</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.dhbw.softwareengineering</groupId>
             <artifactId>adapters</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

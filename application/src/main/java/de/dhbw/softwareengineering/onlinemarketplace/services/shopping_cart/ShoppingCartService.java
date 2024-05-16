@@ -1,8 +1,8 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.OrderService;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.ProductDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.ShoppingCartDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartManagementService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import java.util.UUID;
 @Service
 public class ShoppingCartService {
     private final IShoppingCartRepository repository;
-    private final OrderService orderService;
+    private final ShoppingCartManagementService shoppingCartManagementService;
 
     @Autowired
-    public ShoppingCartService(IShoppingCartRepository repository, OrderService orderService) {
+    public ShoppingCartService(IShoppingCartRepository repository, ShoppingCartManagementService shoppingCartManagementService) {
         this.repository = repository;
-        this.orderService = orderService;
+        this.shoppingCartManagementService = shoppingCartManagementService;
     }
 
     public Optional<ShoppingCart> getShoppingCartOfUser(UUID userId) {
@@ -27,7 +27,7 @@ public class ShoppingCartService {
     }
 
     public double getTotalPrize(UUID userId) throws ShoppingCartDoesNotExistException, ProductDoesNotExistException {
-        return orderService.getTotalPrizeOfShoppingCart(userId);
+        return shoppingCartManagementService.getTotalPrizeOfShoppingCart(userId);
     }
 
     public ShoppingCart removeItem(RemoveItemFromShoppingCartRequest request) {
@@ -36,7 +36,7 @@ public class ShoppingCartService {
     }
 
     public ShoppingCart addItem(AddItemToShoppingCartRequest request) throws ProductDoesNotExistException {
-        orderService.checkIfAllProductExists(request.cartItem().productId());
+        shoppingCartManagementService.checkIfProductOfCartItemExists(request.cartItem());
         request.shoppingCart().addItem(request.cartItem());
         return repository.update(request.shoppingCart());
     }

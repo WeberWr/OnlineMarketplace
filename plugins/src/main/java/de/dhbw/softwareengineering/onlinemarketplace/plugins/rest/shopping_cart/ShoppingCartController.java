@@ -2,8 +2,8 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.shopping_cart
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.ProductDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.ShoppingCartDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.AddItemToShoppingCartRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCartRequest;
