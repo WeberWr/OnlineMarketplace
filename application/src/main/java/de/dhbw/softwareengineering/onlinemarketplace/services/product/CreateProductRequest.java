@@ -1,4 +1,4 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.product;
 
 
-public record CreateProductRequest(String name, double price, int amount){}
+public record CreateProductRequest(String name, String description, double price, int amount){}

@@ -5,9 +5,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface IProductRepository {
-    List<Product> findAllProducts();
-    List<Product> findAllProductsFromUser(UUID userId);
-    Optional<Product> findProductWithId(UUID id);
+    List<Product> getAllProducts();
+    List<Product> getAllProductsFromUser(UUID userId);
+    Optional<Product> getProductWithId(UUID id);
     Product create(Product product);
     void deleteById(UUID id);
 }

@@ -21,17 +21,17 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List<Product> findAllProducts() {
+    public List<Product> getAllProducts() {
         return dataProductRepository.findAll();
     }
 
     @Override
-    public List<Product> findAllProductsFromUser(UUID userId) {
+    public List<Product> getAllProductsFromUser(UUID userId) {
         return dataProductRepository.findAll().stream().filter(product -> product.getUserId().equals(userId)).toList();
     }
 
     @Override
-    public Optional<Product> findProductWithId(UUID id) {
+    public Optional<Product> getProductWithId(UUID id) {
         return dataProductRepository.findById(id);
     }
 

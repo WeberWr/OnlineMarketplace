@@ -14,6 +14,6 @@ public class ProductToProductDtoMapper implements Function<Product, ProductDto> 
     }
 
     private ProductDto map(Product product) {
-        return new ProductDto(product.getId(), product.getUserId(), product.getName(), product.getPrice());
+        return new ProductDto(product.getId(), product.getUserId(), product.getName(), product.getDescription(), product.getPrice());
     }
 }

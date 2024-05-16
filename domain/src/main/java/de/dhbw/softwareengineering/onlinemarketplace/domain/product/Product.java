@@ -8,19 +8,22 @@ import java.util.UUID;
 @Document
 public final class Product {
     private final UUID id;
-    private final UUID userId;
-    private final String name;
-    private final double price;
+    private UUID userId;
+    private String name;
+    private String description;
+    private double price;
 
-    public Product(UUID userId, String name, double price, int amount) {
+    public Product(UUID userId, String name, String description, double price, int amount) {
         Validate.notNull(userId);
         Validate.notBlank(name);
+        Validate.notBlank(description);
         Validate.isTrue(price > 0);
         Validate.isTrue(amount >= 0);
 
         this.id = UUID.randomUUID();
         this.userId = userId;
         this.name = name;
+        this.description = description;
         this.price = price;
     }
 
@@ -35,6 +38,8 @@ public final class Product {
     public String getName() {
         return name;
     }
+
+    public String getDescription() { return description; }
 
     public double getPrice() {
         return price;

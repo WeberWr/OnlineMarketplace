@@ -19,19 +19,19 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return repository.findAllProducts();
+        return repository.getAllProducts();
     }
 
     public List<Product> getAllProductsFromUser(UUID userId) {
-        return repository.findAllProductsFromUser(userId);
+        return repository.getAllProductsFromUser(userId);
     }
 
     public Optional<Product> getProductWithId(UUID id) {
-        return repository.findProductWithId(id);
+        return repository.getProductWithId(id);
     }
 
     public Product create(CreateProductRequest request, UUID userId) {
-        var product = new Product(userId, request.name(), request.price(), request.amount());
+        var product = new Product(userId, request.name(), request.description(), request.price(), request.amount());
         return repository.create(product);
     }
 

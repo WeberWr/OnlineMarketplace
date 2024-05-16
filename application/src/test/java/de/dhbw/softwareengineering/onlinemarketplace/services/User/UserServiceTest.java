@@ -5,10 +5,10 @@ import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.Shoppi
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.CreateUserRequest;
-import de.dhbw.softwareengineering.onlinemarketplace.services.IPasswordEncoder;
-import de.dhbw.softwareengineering.onlinemarketplace.services.UserAlreadyExistsException;
-import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.IPasswordEncoder;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

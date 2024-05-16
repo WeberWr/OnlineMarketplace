@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.services;
+package de.dhbw.softwareengineering.onlinemarketplace.services.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;

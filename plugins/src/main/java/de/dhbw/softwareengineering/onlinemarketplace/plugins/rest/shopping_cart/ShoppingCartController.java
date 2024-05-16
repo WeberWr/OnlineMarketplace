@@ -2,6 +2,8 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.shopping_cart
 
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.AddItemToShoppingCartRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCartRequest;
@@ -33,21 +35,23 @@ public class ShoppingCartController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<ShoppingCartDto> addItem(@RequestBody AddItemToShoppingCartRequest request) {
+    @GetMapping("/totalPrize")
+    public ResponseEntity<Double> getTotalPrize() throws ShoppingCartDoesNotExistException, ProductDoesNotExistException {
+        var prize = shoppingCartService.getTotalPrize(contextProvider.getUser().id());
+        return ResponseEntity.ok(prize);
+    }
+
+    @PutMapping("/addItem")
+    public ResponseEntity<ShoppingCartDto> addItem(@RequestBody AddItemToShoppingCartRequest request) throws ProductDoesNotExistException {
         var updatedShoppingCart = shoppingCartService.addItem(request);
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 
-    @PostMapping
+    @PutMapping("/removeItem")
     public ResponseEntity<ShoppingCartDto> removeItem(@RequestBody RemoveItemFromShoppingCartRequest request) {
         var updatedShoppingCart = shoppingCartService.removeItem(request);
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
-
-    //ToDo add updateMethod (increase/decrease)
-    //ToDo add getTotalPrize
-    //ToDo add endpoint to bestellung abschließen
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {

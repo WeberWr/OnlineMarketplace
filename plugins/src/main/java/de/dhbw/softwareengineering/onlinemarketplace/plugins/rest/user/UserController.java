@@ -3,9 +3,9 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.user;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.CreateUserRequest;
-import de.dhbw.softwareengineering.onlinemarketplace.services.UserAlreadyExistsException;
-import de.dhbw.softwareengineering.onlinemarketplace.services.UserService;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +53,6 @@ public class UserController {
 		}
 		return ResponseEntity.ok(toDtoMapper.apply(createdUser));
 	}
-
-	//ToDo add updateMethod
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
