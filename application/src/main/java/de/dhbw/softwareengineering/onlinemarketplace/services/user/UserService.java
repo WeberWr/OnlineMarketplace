@@ -1,11 +1,10 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.user;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,14 @@ import java.util.UUID;
 public class UserService {
 
     private final IUserRepository userRepository;
-    private final IShoppingCartRepository shoppingCartRepository;
     private final IPasswordEncoder passwordEncoder;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public UserService(IUserRepository userRepository, IShoppingCartRepository shoppingCartRepository, IPasswordEncoder passwordEncoder) {
+    public UserService(IUserRepository userRepository, IPasswordEncoder passwordEncoder, ApplicationEventPublisher eventPublisher) {
         this.userRepository = userRepository;
-        this.shoppingCartRepository = shoppingCartRepository;
         this.passwordEncoder = passwordEncoder;
+        this.eventPublisher = eventPublisher;
     }
 
     public Optional<User> getUserById(UUID id) {
@@ -44,15 +43,12 @@ public class UserService {
         var user = new User(name, request.email(), passwordEncoder.encode(request.password()));
         userRepository.create(user);
 
-        var shoppingCart = new ShoppingCart(user.id());
-        shoppingCartRepository.create(shoppingCart);
+        eventPublisher.publishEvent(new UserCreatedEvent(this, user.id()));
         return user;
     }
 
     public void deleteUser(UUID id) {
         userRepository.deleteUser(id);
-
-        var shoppingCard = shoppingCartRepository.getShoppingCartOfUser(id);
-        shoppingCard.ifPresent(shoppingCartRepository::delete);
+        eventPublisher.publishEvent(new UserDeletedEvent(this, id));
     }
 }
