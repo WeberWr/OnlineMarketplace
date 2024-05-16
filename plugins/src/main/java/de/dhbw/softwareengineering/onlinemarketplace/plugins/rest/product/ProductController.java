@@ -1,9 +1,10 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
 
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.CreateProductRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
-import de.dhbw.softwareengineering.onlinemarketplace.services.product.CreateProductRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.product.CreateProductCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,8 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request) {
-        var createdProduct = productService.create(request, contextProvider.getUser().id());
+        var createCommand = new CreateProductCommand(request.name(), request.description(), request.price());
+        var createdProduct = productService.create(createCommand, contextProvider.getUser().id());
         return ResponseEntity.ok(toDtoMapper.apply(createdProduct));
     }
 

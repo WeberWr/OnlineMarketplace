@@ -30,8 +30,8 @@ public class ProductService {
         return repository.getProductWithId(id);
     }
 
-    public Product create(CreateProductRequest request, UUID userId) {
-        var product = new Product(userId, request.name(), request.description(), request.price(), request.amount());
+    public Product create(CreateProductCommand request, UUID userId) {
+        var product = new Product(userId, request.name(), request.description(), request.price());
         return repository.create(product);
     }
 

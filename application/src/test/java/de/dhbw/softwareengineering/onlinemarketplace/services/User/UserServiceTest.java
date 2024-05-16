@@ -5,7 +5,7 @@ import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.Shoppi
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.IPasswordEncoder;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
@@ -41,7 +41,7 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUser_Success() throws UserAlreadyExistsException {
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", "john.doe@example.com", "password123");
+        CreateUserCommand request = new CreateUserCommand("John", "Doe", "john.doe@example.com", "password123");
         when(userRepository.getUserByEmail(request.email())).thenReturn(Optional.empty());
         when(passwordEncoder.encode(request.password())).thenReturn("encodedPassword");
 
@@ -61,7 +61,7 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUser_Failure_UserAlreadyExists() {
-        CreateUserRequest request = new CreateUserRequest("Jane", "Doe", "jane.doe@example.com", "password123");
+        CreateUserCommand request = new CreateUserCommand("Jane", "Doe", "jane.doe@example.com", "password123");
         Name name = new Name(request.firstName(), request.lastName());
         when(userRepository.getUserByEmail(request.email())).thenReturn(Optional.of(new User(name, request.email(), request.password())));
 

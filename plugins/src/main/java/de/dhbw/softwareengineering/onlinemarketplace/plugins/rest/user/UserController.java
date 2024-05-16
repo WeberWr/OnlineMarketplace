@@ -1,9 +1,10 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.user;
 
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.CreateUserRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.CreateUserRequestToCreateUserCommandMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
 import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserController {
 	private final UserService userService;
 	private final UserToUserDtoMapper toDtoMapper = new UserToUserDtoMapper();
+	private final CreateUserRequestToCreateUserCommandMapper toCommandMapper = new CreateUserRequestToCreateUserCommandMapper();
 
 	@Autowired
 	public UserController(UserService userService) {
@@ -45,9 +47,10 @@ public class UserController {
 	@PostMapping
 	@SecurityRequirements()
 	public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest request) {
+		var createCommand = toCommandMapper.apply(request);
 		User createdUser;
 		try {
-			createdUser = userService.create(request);
+			createdUser = userService.create(createCommand);
 		} catch (UserAlreadyExistsException e) {
 			return ResponseEntity.badRequest().build();
 		}

@@ -1,12 +1,14 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.shopping_cart;
 
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.AddItemToShoppingCartRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.RemoveItemFromShoppingCartRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ProductDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
-import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.AddItemToShoppingCartRequest;
-import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCartRequest;
+import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.AddItemToShoppingCartCommand;
+import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.RemoveItemFromShoppingCartCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,13 +45,15 @@ public class ShoppingCartController {
 
     @PutMapping("/addItem")
     public ResponseEntity<ShoppingCartDto> addItem(@RequestBody AddItemToShoppingCartRequest request) throws ProductDoesNotExistException {
-        var updatedShoppingCart = shoppingCartService.addItem(request);
+        var createCommand = new AddItemToShoppingCartCommand(request.shoppingCart(), request.cartItem());
+        var updatedShoppingCart = shoppingCartService.addItem(createCommand);
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 
     @PutMapping("/removeItem")
     public ResponseEntity<ShoppingCartDto> removeItem(@RequestBody RemoveItemFromShoppingCartRequest request) {
-        var updatedShoppingCart = shoppingCartService.removeItem(request);
+        var removeCommand = new RemoveItemFromShoppingCartCommand(request.shoppingCart(), request.productId());
+        var updatedShoppingCart = shoppingCartService.removeItem(removeCommand);
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 

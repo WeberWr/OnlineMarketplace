@@ -34,7 +34,7 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
-    public User create(CreateUserRequest request) throws UserAlreadyExistsException {
+    public User create(CreateUserCommand request) throws UserAlreadyExistsException {
         var existingUser = userRepository.getUserByEmail(request.email());
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException();

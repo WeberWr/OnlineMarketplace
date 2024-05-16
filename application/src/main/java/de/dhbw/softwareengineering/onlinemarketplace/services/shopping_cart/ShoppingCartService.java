@@ -1,8 +1,8 @@
 package de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartManagementService;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ProductDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.order.ShoppingCartDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartManagementService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ public class ShoppingCartService {
         return shoppingCartManagementService.getTotalPrizeOfShoppingCart(userId);
     }
 
-    public ShoppingCart removeItem(RemoveItemFromShoppingCartRequest request) {
+    public ShoppingCart removeItem(RemoveItemFromShoppingCartCommand request) {
         request.shoppingCart().removeItemWithProduct(request.productId());
         return repository.update(request.shoppingCart());
     }
 
-    public ShoppingCart addItem(AddItemToShoppingCartRequest request) throws ProductDoesNotExistException {
+    public ShoppingCart addItem(AddItemToShoppingCartCommand request) throws ProductDoesNotExistException {
         shoppingCartManagementService.checkIfProductOfCartItemExists(request.cartItem());
         request.shoppingCart().addItem(request.cartItem());
         return repository.update(request.shoppingCart());

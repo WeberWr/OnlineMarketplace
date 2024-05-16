@@ -3,6 +3,8 @@ package de.dhbw.softwareengineering.onlinemarketplace.services.shopping_cart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.CartItem;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ShoppingCartServiceTest {
 
     @Mock
-    private IShoppingCartRepository repository;
+    private IShoppingCartRepository shoppingCartRepository;
+
+    @Mock
+    private ShoppingCartManagementService shoppingCartManagementService;
 
     @InjectMocks
     private ShoppingCartService shoppingCartService;
@@ -41,43 +46,44 @@ public class ShoppingCartServiceTest {
 
     @Test
     void getShoppingCartOfUser() {
-        when(repository.getShoppingCartOfUser(userId)).thenReturn(Optional.of(cart));
+        when(shoppingCartRepository.getShoppingCartOfUser(userId)).thenReturn(Optional.of(cart));
 
         Optional<ShoppingCart> result = shoppingCartService.getShoppingCartOfUser(userId);
 
         assertTrue(result.isPresent());
         assertEquals(cart, result.get());
-        verify(repository).getShoppingCartOfUser(userId);
+        verify(shoppingCartRepository).getShoppingCartOfUser(userId);
     }
 
     @Test
-    void addItem() {
+    void addItem() throws ProductDoesNotExistException {
         CartItem item = new CartItem(productId, 1);
-        AddItemToShoppingCartRequest request = new AddItemToShoppingCartRequest(cart, item);
-        when(repository.update(cart)).thenReturn(cart);
+        AddItemToShoppingCartCommand request = new AddItemToShoppingCartCommand(cart, item);
+        when(shoppingCartRepository.update(cart)).thenReturn(cart);
+        doNothing().when(shoppingCartManagementService).checkIfProductOfCartItemExists(item);
 
         ShoppingCart updatedCart = shoppingCartService.addItem(request);
 
         assertEquals(cart, updatedCart);
-        verify(repository).update(cart);
+        verify(shoppingCartRepository).update(cart);
     }
 
 
     @Test
     void removeItem() {
-        RemoveItemFromShoppingCartRequest request = new RemoveItemFromShoppingCartRequest(cart, productId);
-        when(repository.update(cart)).thenReturn(cart);
+        RemoveItemFromShoppingCartCommand request = new RemoveItemFromShoppingCartCommand(cart, productId);
+        when(shoppingCartRepository.update(cart)).thenReturn(cart);
 
         ShoppingCart updatedCart = shoppingCartService.removeItem(request);
 
         assertEquals(cart, updatedCart);
-        verify(repository).update(cart);
+        verify(shoppingCartRepository).update(cart);
     }
 
     @Test
     void deleteById() {
         shoppingCartService.deleteById(userId);
 
-        verify(repository).deleteById(userId);
+        verify(shoppingCartRepository).deleteById(userId);
     }
 }

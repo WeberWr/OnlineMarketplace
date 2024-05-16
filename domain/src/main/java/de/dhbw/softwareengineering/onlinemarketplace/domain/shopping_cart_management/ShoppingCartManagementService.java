@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.domain.order;
+package de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.IProductRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.CartItem;

@@ -13,12 +13,11 @@ public final class Product {
     private String description;
     private double price;
 
-    public Product(UUID userId, String name, String description, double price, int amount) {
+    public Product(UUID userId, String name, String description, double price) {
         Validate.notNull(userId);
         Validate.notBlank(name);
         Validate.notBlank(description);
         Validate.isTrue(price > 0);
-        Validate.isTrue(amount >= 0);
 
         this.id = UUID.randomUUID();
         this.userId = userId;
