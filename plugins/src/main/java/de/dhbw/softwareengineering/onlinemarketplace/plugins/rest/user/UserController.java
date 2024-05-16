@@ -5,8 +5,8 @@ import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.us
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserDTO;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user.UserToUserDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserAlreadyExistsException;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

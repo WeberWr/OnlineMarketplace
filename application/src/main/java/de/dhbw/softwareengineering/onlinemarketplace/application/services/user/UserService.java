@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.services.user;
+package de.dhbw.softwareengineering.onlinemarketplace.application.services.user;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;

@@ -1,6 +1,6 @@
 package de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.user;
 
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserCommand;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.CreateUserCommand;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

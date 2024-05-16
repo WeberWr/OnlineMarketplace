@@ -1,4 +1,4 @@
-package de.dhbw.softwareengineering.onlinemarketplace.services.product;
+package de.dhbw.softwareengineering.onlinemarketplace.application.services.product;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.IProductRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;

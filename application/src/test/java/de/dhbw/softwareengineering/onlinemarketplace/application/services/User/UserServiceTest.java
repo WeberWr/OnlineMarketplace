@@ -1,14 +1,14 @@
-package de.dhbw.softwareengineering.onlinemarketplace.services.User;
+package de.dhbw.softwareengineering.onlinemarketplace.application.services.User;
 
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.CreateUserCommand;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.IPasswordEncoder;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserAlreadyExistsException;
-import de.dhbw.softwareengineering.onlinemarketplace.services.user.UserService;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.CreateUserCommand;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.IPasswordEncoder;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserAlreadyExistsException;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

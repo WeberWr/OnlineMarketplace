@@ -4,8 +4,8 @@ import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.pr
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
-import de.dhbw.softwareengineering.onlinemarketplace.services.product.CreateProductCommand;
-import de.dhbw.softwareengineering.onlinemarketplace.services.product.ProductService;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.CreateProductCommand;
+import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
