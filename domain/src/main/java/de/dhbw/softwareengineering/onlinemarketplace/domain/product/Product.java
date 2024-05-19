@@ -15,15 +15,11 @@ public final class Product {
     private String description;
     private double price;
 
-    public Product(UUID userId, String name, String description, double price) throws IllegalArgumentException{
-        try {
-            Validate.notNull(userId);
-            Validate.notBlank(name);
-            Validate.notBlank(description);
-            Validate.isTrue(price > 0);
-        } catch (IllegalArgumentException e){
-            throw e;
-        }
+    public Product(UUID userId, String name, String description, double price) {
+        Validate.notNull(userId);
+        Validate.notBlank(name);
+        Validate.notBlank(description);
+        Validate.isTrue(price > 0);
 
         this.id = UUID.randomUUID();
         this.userId = userId;
