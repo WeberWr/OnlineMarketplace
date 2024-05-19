@@ -10,17 +10,10 @@ import java.util.UUID;
 @Document
 public final class User {
     @Id
-    private final UUID id;
-    private final Name name;
-    private final String email;
-    private final String password;
-
-    public User(UUID id, Name name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+    private UUID id;
+    private Name name;
+    private String email;
+    private String password;
 
     public User(Name name, String email, String password) {
         Validate.notNull(name);

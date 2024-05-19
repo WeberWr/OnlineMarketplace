@@ -1,5 +1,6 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -9,9 +10,10 @@ import java.util.UUID;
 
 @Document
 public class ShoppingCart {
-    private final UUID id;
-    private final UUID userId;
-    private final List<CartItem> items;
+    @Id
+    private UUID id;
+    private UUID userId;
+    private List<CartItem> items;
 
     public ShoppingCart(UUID userId) {
         id = UUID.randomUUID();

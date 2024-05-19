@@ -40,9 +40,4 @@ public class ShoppingCartService {
         request.shoppingCart().addItem(request.cartItem());
         return repository.update(request.shoppingCart());
     }
-
-    public void deleteById(UUID id) {
-        repository.deleteById(id);
-    }
-
 }

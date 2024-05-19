@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DataShoppingCartRepository extends MongoRepository<ShoppingCart, UUID> {
-    @Query("{userId:'?0'}")
-    public Optional<ShoppingCart> getShoppingCartOfUser(UUID userId);
+    @Query("{'userId':?0}")
+    Optional<ShoppingCart> getShoppingCartOfUser(UUID userId);
 }
