@@ -30,8 +30,13 @@ public class ProductService {
         return repository.getProductWithId(id);
     }
 
-    public Product create(CreateProductCommand request, UUID userId) {
-        var product = new Product(userId, request.name(), request.description(), request.price());
+    public Product create(CreateProductCommand request, UUID userId) throws IllegalArgumentException {
+        Product product;
+        try {
+            product = new Product(userId, request.name(), request.description(), request.price());
+        } catch (IllegalArgumentException e){
+            throw e;
+        }
         return repository.create(product);
     }
 

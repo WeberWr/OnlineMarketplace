@@ -3,6 +3,7 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.CreateProductRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.CreateProductCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.ProductService;
@@ -56,7 +57,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request) {
         var createCommand = new CreateProductCommand(request.name(), request.description(), request.price());
-        var createdProduct = productService.create(createCommand, contextProvider.getUser().id());
+        Product createdProduct;
+        try{
+            createdProduct = productService.create(createCommand, contextProvider.getUser().id());
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(toDtoMapper.apply(createdProduct));
     }
 

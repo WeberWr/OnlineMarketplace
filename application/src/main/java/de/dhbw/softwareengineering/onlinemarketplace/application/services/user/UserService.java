@@ -33,14 +33,19 @@ public class UserService {
         return userRepository.getAllUsers();
     }
 
-    public User create(CreateUserCommand request) throws UserAlreadyExistsException {
+    public User create(CreateUserCommand request) throws UserAlreadyExistsException, IllegalArgumentException {
         var existingUser = userRepository.getUserByEmail(request.email());
         if (existingUser.isPresent()) {
             throw new UserAlreadyExistsException();
         }
 
         var name = new Name(request.firstName(), request.lastName());
-        var user = new User(name, request.email(), passwordEncoder.encode(request.password()));
+        User user;
+        try{
+         user = new User(name, request.email(), passwordEncoder.encode(request.password()));
+        } catch (IllegalArgumentException e){
+            throw (e);
+        }
         userRepository.create(user);
 
         eventPublisher.publishEvent(new UserCreatedEvent(this, user.id()));

@@ -44,17 +44,17 @@ public class UserController {
 		return ResponseEntity.ok(users);
 	}
 
-	@PostMapping
+	@PostMapping("/create")
 	@SecurityRequirements()
 	public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest request) {
 		var createCommand = toCommandMapper.apply(request);
 		User createdUser;
 		try {
 			createdUser = userService.create(createCommand);
-		} catch (UserAlreadyExistsException e) {
+		} catch (UserAlreadyExistsException | IllegalArgumentException e) {
 			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.ok(toDtoMapper.apply(createdUser));
+        return ResponseEntity.ok(toDtoMapper.apply(createdUser));
 	}
 
 	@DeleteMapping("/{id}")

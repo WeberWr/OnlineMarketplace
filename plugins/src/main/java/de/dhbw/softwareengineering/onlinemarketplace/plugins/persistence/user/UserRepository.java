@@ -26,7 +26,8 @@ public class UserRepository implements IUserRepository {
 
 	@Override
 	public Optional<User> getUserByEmail(String email) {
-		return dataUserRepository.findUserByEmail(email);
+		var bla = dataUserRepository.findUserByEmail(email);
+		return bla;
 	}
 
 	@Override

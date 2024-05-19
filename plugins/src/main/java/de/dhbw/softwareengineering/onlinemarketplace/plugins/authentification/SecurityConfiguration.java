@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                     x.requestMatchers(
                             "/v3/api-docs/**",
                             "/swagger-ui/**",
-                            "/users"
+                            "/users/create"
                     ).permitAll();
                     x.anyRequest().authenticated();
                 })

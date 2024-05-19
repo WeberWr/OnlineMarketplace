@@ -1,8 +1,11 @@
 package de.dhbw.softwareengineering.onlinemarketplace.domain.validation;
 
+import org.springframework.stereotype.Service;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class EmailValidator {
     private static final String EMAIL_REGEX = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     private static final EmailValidator instance = new EmailValidator();

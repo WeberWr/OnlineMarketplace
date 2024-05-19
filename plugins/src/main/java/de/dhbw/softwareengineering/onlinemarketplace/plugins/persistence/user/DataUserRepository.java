@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface DataUserRepository extends MongoRepository<User, UUID> {
     @Query("{email:'?0'}")
-    public Optional<User> findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 }
