@@ -7,6 +7,7 @@ import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.sh
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.AddItemToShoppingCartCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.RemoveItemFromShoppingCartCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.ShoppingCartService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
@@ -36,22 +37,40 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/totalPrize")
-    public ResponseEntity<Double> getTotalPrize() throws ShoppingCartDoesNotExistException, ProductDoesNotExistException {
-        var prize = shoppingCartService.getTotalPrize(contextProvider.getUser().id());
+    public ResponseEntity<Double> getTotalPrize() {
+        double prize;
+        try {
+            prize = shoppingCartService.getTotalPrize(contextProvider.getUser().id());
+        } catch (ShoppingCartDoesNotExistException | ProductDoesNotExistException e) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(prize);
     }
 
     @PutMapping("/addItem")
-    public ResponseEntity<ShoppingCartDto> addItem(@RequestBody AddItemToShoppingCartRequest request) throws ProductDoesNotExistException {
-        var createCommand = new AddItemToShoppingCartCommand(request.shoppingCart(), request.cartItem());
-        var updatedShoppingCart = shoppingCartService.addItem(createCommand);
+    public ResponseEntity<ShoppingCartDto> addItem(@RequestBody AddItemToShoppingCartRequest request) {
+        var currentUserId = contextProvider.getUser().id();
+        var createCommand = new AddItemToShoppingCartCommand(currentUserId, request.cartItem());
+        ShoppingCart updatedShoppingCart;
+        try {
+            updatedShoppingCart = shoppingCartService.addItem(createCommand);
+
+        } catch (ProductDoesNotExistException | ShoppingCartDoesNotExistException e) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 
     @PutMapping("/removeItem")
     public ResponseEntity<ShoppingCartDto> removeItem(@RequestBody RemoveItemFromShoppingCartRequest request) {
-        var removeCommand = new RemoveItemFromShoppingCartCommand(request.shoppingCart(), request.productId());
-        var updatedShoppingCart = shoppingCartService.removeItem(removeCommand);
+        var currentUserId = contextProvider.getUser().id();
+        var removeCommand = new RemoveItemFromShoppingCartCommand(currentUserId, request.productId());
+        ShoppingCart updatedShoppingCart;
+        try {
+            updatedShoppingCart = shoppingCartService.removeItem(removeCommand);
+        } catch (ShoppingCartDoesNotExistException e) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(toDtoMapper.apply(updatedShoppingCart));
     }
 }

@@ -4,6 +4,7 @@ import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.CartIt
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
 import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,10 +58,11 @@ public class ShoppingCartServiceTest {
     }
 
     @Test
-    void addItem() throws ProductDoesNotExistException {
+    void addItem() throws ProductDoesNotExistException, ShoppingCartDoesNotExistException {
         CartItem item = new CartItem(productId, 1);
-        AddItemToShoppingCartCommand request = new AddItemToShoppingCartCommand(cart, item);
+        AddItemToShoppingCartCommand request = new AddItemToShoppingCartCommand(userId, item);
         when(shoppingCartRepository.update(cart)).thenReturn(cart);
+        when(shoppingCartRepository.getShoppingCartOfUser(userId)).thenReturn(Optional.of(cart));
         doNothing().when(shoppingCartManagementService).checkIfProductOfCartItemExists(item);
 
         ShoppingCart updatedCart = shoppingCartService.addItem(request);
@@ -71,8 +73,9 @@ public class ShoppingCartServiceTest {
 
 
     @Test
-    void removeItem() {
-        RemoveItemFromShoppingCartCommand request = new RemoveItemFromShoppingCartCommand(cart, productId);
+    void removeItem() throws ShoppingCartDoesNotExistException {
+        RemoveItemFromShoppingCartCommand request = new RemoveItemFromShoppingCartCommand(userId, productId);
+        when(shoppingCartRepository.getShoppingCartOfUser(userId)).thenReturn(Optional.of(cart));
         when(shoppingCartRepository.update(cart)).thenReturn(cart);
 
         ShoppingCart updatedCart = shoppingCartService.removeItem(request);

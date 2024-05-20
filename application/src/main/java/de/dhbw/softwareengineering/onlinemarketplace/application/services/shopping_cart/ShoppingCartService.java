@@ -30,14 +30,22 @@ public class ShoppingCartService {
         return shoppingCartManagementService.getTotalPrizeOfShoppingCart(userId);
     }
 
-    public ShoppingCart removeItem(RemoveItemFromShoppingCartCommand request) {
-        request.shoppingCart().removeItemWithProduct(request.productId());
-        return repository.update(request.shoppingCart());
+    public ShoppingCart removeItem(RemoveItemFromShoppingCartCommand request) throws ShoppingCartDoesNotExistException {
+        var shoppingCart = repository.getShoppingCartOfUser(request.userId());
+        if (shoppingCart.isEmpty()) {
+            throw new ShoppingCartDoesNotExistException();
+        }
+        shoppingCart.get().removeItemWithProduct(request.productId());
+        return repository.update(shoppingCart.get());
     }
 
-    public ShoppingCart addItem(AddItemToShoppingCartCommand request) throws ProductDoesNotExistException {
+    public ShoppingCart addItem(AddItemToShoppingCartCommand request) throws ProductDoesNotExistException, ShoppingCartDoesNotExistException {
         shoppingCartManagementService.checkIfProductOfCartItemExists(request.cartItem());
-        request.shoppingCart().addItem(request.cartItem());
-        return repository.update(request.shoppingCart());
+        var shoppingCart = repository.getShoppingCartOfUser(request.userId());
+        if (shoppingCart.isEmpty()) {
+            throw new ShoppingCartDoesNotExistException();
+        }
+        shoppingCart.get().addItem(request.cartItem());
+        return repository.update(shoppingCart.get());
     }
 }

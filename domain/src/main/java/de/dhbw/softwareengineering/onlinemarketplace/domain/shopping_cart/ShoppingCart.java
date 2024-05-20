@@ -14,7 +14,6 @@ public class ShoppingCart {
     private UUID id;
     private UUID userId;
     private List<CartItem> items;
-
     public ShoppingCart(UUID userId) {
         id = UUID.randomUUID();
         this.userId = userId;
