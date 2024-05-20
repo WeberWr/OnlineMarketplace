@@ -1,4 +1,5 @@
 package de.dhbw.softwareengineering.onlinemarketplace.plugins.persistence.user;
+
 import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

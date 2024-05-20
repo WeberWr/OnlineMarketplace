@@ -4,12 +4,12 @@ import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.sh
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.RemoveItemFromShoppingCartRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.shopping_cart.ShoppingCartToShoppingCartDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
-import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.AddItemToShoppingCartCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.RemoveItemFromShoppingCartCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.shopping_cart.ShoppingCartService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ProductDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart_management.ShoppingCartDoesNotExistException;
+import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -12,35 +12,35 @@ import java.util.UUID;
 
 @Repository
 public class UserRepository implements IUserRepository {
-	private final DataUserRepository dataUserRepository;
+    private final DataUserRepository dataUserRepository;
 
-	@Autowired
-	public UserRepository(DataUserRepository dataUserRepository) {
-		this.dataUserRepository = dataUserRepository;
-	}
+    @Autowired
+    public UserRepository(DataUserRepository dataUserRepository) {
+        this.dataUserRepository = dataUserRepository;
+    }
 
-	@Override
-	public Optional<User> getUserById(UUID id) {
-		return dataUserRepository.findById(id);
-	}
+    @Override
+    public Optional<User> getUserById(UUID id) {
+        return dataUserRepository.findById(id);
+    }
 
-	@Override
-	public Optional<User> getUserByEmail(String email) {
+    @Override
+    public Optional<User> getUserByEmail(String email) {
         return dataUserRepository.findUserByEmail(email);
-	}
+    }
 
-	@Override
-	public List<User> getAllUsers() {
-		return dataUserRepository.findAll();
-	}
+    @Override
+    public List<User> getAllUsers() {
+        return dataUserRepository.findAll();
+    }
 
-	@Override
-	public void create(User user) {
-		dataUserRepository.save(user);
-	}
+    @Override
+    public void create(User user) {
+        dataUserRepository.save(user);
+    }
 
-	@Override
-	public void deleteUser(UUID id) {
-		dataUserRepository.deleteById(id);
-	}
+    @Override
+    public void deleteUser(UUID id) {
+        dataUserRepository.deleteById(id);
+    }
 }

@@ -18,6 +18,7 @@ public class ShoppingCartRepository implements IShoppingCartRepository {
     public ShoppingCartRepository(final DataShoppingCartRepository dataShoppingCartRepository) {
         this.dataShoppingCartRepository = dataShoppingCartRepository;
     }
+
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         return dataShoppingCartRepository.save(shoppingCart);

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Document
 public final class Product {
     @Id
-    private final UUID id;
+    private UUID id;
     private UUID userId;
     private String name;
     private String description;
@@ -40,7 +40,9 @@ public final class Product {
         return name;
     }
 
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     public double getPrice() {
         return price;

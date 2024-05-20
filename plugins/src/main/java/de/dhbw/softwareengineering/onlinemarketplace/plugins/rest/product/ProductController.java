@@ -3,10 +3,10 @@ package de.dhbw.softwareengineering.onlinemarketplace.plugins.rest.product;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.CreateProductRequest;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductDto;
 import de.dhbw.softwareengineering.onlinemarketplace.adapters.representations.product.ProductToProductDtoMapper;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
-import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.CreateProductCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.product.ProductService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.product.Product;
+import de.dhbw.softwareengineering.onlinemarketplace.plugins.authentification.ContextProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +58,9 @@ public class ProductController {
     public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request) {
         var createCommand = new CreateProductCommand(request.name(), request.description(), request.price());
         Product createdProduct;
-        try{
+        try {
             createdProduct = productService.create(createCommand, contextProvider.getUser().id());
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(toDtoMapper.apply(createdProduct));

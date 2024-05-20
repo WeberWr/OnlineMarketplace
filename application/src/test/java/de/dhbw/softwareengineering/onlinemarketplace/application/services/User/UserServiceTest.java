@@ -1,17 +1,18 @@
 package de.dhbw.softwareengineering.onlinemarketplace.application.services.User;
 
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.IShoppingCartRepository;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.shopping_cart.ShoppingCart;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
-import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.CreateUserCommand;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.IPasswordEncoder;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserAlreadyExistsException;
 import de.dhbw.softwareengineering.onlinemarketplace.application.services.user.UserService;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.user.IUserRepository;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.user.Name;
+import de.dhbw.softwareengineering.onlinemarketplace.domain.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class UserServiceTest {
     private IUserRepository userRepository;
 
     @Mock
-    private IShoppingCartRepository shoppingCartRepository;
+    private ApplicationEventPublisher eventPublisher;
 
     @Mock
     private IPasswordEncoder passwordEncoder;
@@ -56,7 +57,7 @@ public class UserServiceTest {
         assertNotNull(capturedUser[0]);
         assertEquals("John", capturedUser[0].name().firstName());
         assertEquals("encodedPassword", capturedUser[0].password());
-        verify(shoppingCartRepository).create(any(ShoppingCart.class));
+        verify(eventPublisher).publishEvent(any());
     }
 
     @Test
@@ -71,11 +72,10 @@ public class UserServiceTest {
     @Test
     public void testDeleteUser() {
         UUID userId = UUID.randomUUID();
-        when(shoppingCartRepository.getShoppingCartOfUser(userId)).thenReturn(Optional.of(new ShoppingCart(userId)));
 
         userService.deleteUser(userId);
 
         verify(userRepository).deleteUser(userId);
-        verify(shoppingCartRepository).delete(any(ShoppingCart.class));
+        verify(eventPublisher).publishEvent(any());
     }
 }

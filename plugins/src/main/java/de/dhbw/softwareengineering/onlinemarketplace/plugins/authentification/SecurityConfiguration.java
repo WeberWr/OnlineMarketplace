@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(x-> {
+                .authorizeHttpRequests(x -> {
                     x.requestMatchers(
                             "/v3/api-docs/**",
                             "/swagger-ui/**",
@@ -44,7 +44,8 @@ public class SecurityConfiguration {
                     x.anyRequest().authenticated();
                 })
                 .authenticationManager(authenticationManager)
-                .httpBasic(x ->{});
+                .httpBasic(x -> {
+                });
 
         return http.build();
     }

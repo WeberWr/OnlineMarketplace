@@ -15,8 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ShoppingCartServiceTest {
@@ -78,12 +79,5 @@ public class ShoppingCartServiceTest {
 
         assertEquals(cart, updatedCart);
         verify(shoppingCartRepository).update(cart);
-    }
-
-    @Test
-    void deleteById() {
-        shoppingCartService.deleteById(userId);
-
-        verify(shoppingCartRepository).deleteById(userId);
     }
 }

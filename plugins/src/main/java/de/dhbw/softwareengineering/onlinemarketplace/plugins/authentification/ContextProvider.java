@@ -12,7 +12,7 @@ public class ContextProvider implements IContextProvider {
     }
 
     @Override
-    public User getUser()  {
+    public User getUser() {
         return getUserDetails().getUser();
     }
 }
